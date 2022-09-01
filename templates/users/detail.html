@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<div id="warbler-hero" class="full-width"></div>
+<!-- Profile Background Image -->
+<div id="warbler-hero" class="full-width"
+  style="background-image: url('{{ user.header_image_url }}'); background-size: cover;height:480px; padding-top:80px;">
+</div>
+<!--  -->
 <img src="{{ user.image_url }}" alt="Image for {{ user.username }}" id="profile-avatar">
 <div class="row full-width">
   <div class="container">
@@ -58,8 +62,22 @@
 <div class="row">
   <div class="col-sm-3">
     <h4 id="sidebar-username">@{{ user.username }}</h4>
-    <p>BIO HERE</p>
-    <p class="user-location"><span class="fa fa-map-marker"></span>LOCATION HERE</p>
+    <!-- User Bio -->
+    <p>
+      {% if user.bio %}
+      {{ user.bio }}
+      {% else %}
+      BIO HERE
+      {% endif %}
+    </p>
+    <!-- User Location -->
+    <p class="user-location"><span class="fa fa-map-marker"></span>
+      {% if user.location %}
+      {{ user.location }}
+      {% else %}
+      LOCATION HERE
+      {% endif %}
+    </p>
   </div>
 
   {% block user_details %}
