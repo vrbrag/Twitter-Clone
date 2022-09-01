@@ -97,15 +97,15 @@ class User(db.Model):
     messages = db.relationship('Message')
 
     followers = db.relationship(
-        "User",
-        secondary="follows",
+        "Follows",
+        secondary="users",
         primaryjoin=(Follows.user_being_followed_id == id),
         secondaryjoin=(Follows.user_following_id == id)
     )
 
     following = db.relationship(
-        "User",
-        secondary="follows",
+        "Follows",
+        secondary="users",
         primaryjoin=(Follows.user_following_id == id),
         secondaryjoin=(Follows.user_being_followed_id == id)
     )
@@ -160,7 +160,7 @@ class User(db.Model):
         If can't find matching user (or if password is wrong), returns False.
         """
 
-        user = cls.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first()
 
         if user:
             is_auth = bcrypt.check_password_hash(user.password, password)
