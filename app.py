@@ -264,7 +264,6 @@ def add_like(message_id):
         return redirect("/")
 
     liked_msg = Message.query.get_or_404(message_id)
-    liked_msg_ids = [msg.id for msg in g.user.likes]
 
     if liked_msg in g.user.likes:
         g.user.likes.remove(liked_msg)
